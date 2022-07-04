@@ -1,14 +1,11 @@
-const clone1 = {
-        name: 'Rick',
-        age: 78,
-        country: 'FR',
-};
+const clone1 = {...person}
+const clone2 = {...person}
 
-const clone2 = {
-        name: 'Rick',
-        age: 78,
-        country: 'FR',
-};
+clone1.age = 78
+clone1.country = 'FR'
+
+clone2.age = 78
+clone2.country = 'FR'
 
 const samePerson = person
 
