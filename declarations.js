@@ -7,15 +7,18 @@ const obj = {
     undef: undefined,
 };
 const nested = {
-    arr: Object.freeze([4, obj.undef, '2']),
-    obj: Object.freeze({
+    arr: [4, obj.undef, '2'],
+    obj: {
         str: "Hello World",
         num: 0,
         bool:  false,
-    }),
+    },
 };
 
+var o = Object.freeze(nested)
 
+nested.arr = [5, obj.undef, '2']
+console.log(o)
 console.log(escapeStr)
 console.log(arr)
 console.log(obj)
