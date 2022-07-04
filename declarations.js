@@ -12,7 +12,7 @@ const nested = {
         num: 0,
         bool:  false,
     },
-    arr: ['2', 4, obj.undef],
+    arr: [4, obj.undef, '2'],
 };
 
 Object.freeze(arr)
