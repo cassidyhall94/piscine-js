@@ -7,17 +7,17 @@ const obj = {
     undef: undefined,
 };
 const nested = {
+    arr: [4, obj.undef, '2'],
     obj: {
         str: "Hello World",
         num: 0,
         bool:  false,
     },
-    arr: [4, obj.undef, '2'],
 };
 
-Object.freeze(arr)
-Object.freeze(obj)
-Object.freeze(nested)
+Object.freeze(arr);
+Object.freeze(obj);
+Object.freeze(nested);
 console.log(arr)
 console.log(obj)
 console.log(nested)
