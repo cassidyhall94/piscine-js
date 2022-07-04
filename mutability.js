@@ -5,8 +5,11 @@
 // }  
 let samePerson = person
 
-let clone1 = {...person}
-let clone2 = {...person}
+// let clone1 = {...person}
+// let clone2 = {...person}
+
+const clone1 = JSON.parse(JSON.stringify(person))
+const clone2 = JSON.parse(JSON.stringify(person))
 
 clone1.age = 78;
 clone1.country = 'FR';
