@@ -1,20 +1,22 @@
 const escapeStr = String.raw`\\\`"'/`;
-const arr = Object.freeze([4, '2']);
-const obj = Object.freeze({
+const arr = [4, '2'];
+const obj = {
     str: "Hello World",
     num: 0,
     bool:  false,
     undef: undefined,
-});
-const nested = Object.freeze({
+};
+const nested = {
     arr: [4, obj.undef, '2'],
     obj: {
         str: "Hello World",
         num: 0,
         bool:  false,
     },
-});
+};
 
+Object.freeze(nested.arr)
+Object.freeze(nested.obj)
 console.log(escapeStr)
 console.log(arr)
 console.log(obj)
