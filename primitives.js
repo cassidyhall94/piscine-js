@@ -1,5 +1,4 @@
-const str = String;
-const num = Int16Array;
-const bool =  Boolean;
+const str = "Hello World";
+const num = 0;
+const bool =  false;
 const undef = undefined;
-// console.log(undef)
