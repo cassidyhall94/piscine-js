@@ -1,8 +1,8 @@
 let clone1 = { ...person }
 let clone2 = { ...person }
 
-clone1.age = 78
-clone1.country = 'FR'
+clone1.person.age = 78
+clone1.person.country = 'FR'
 
 clone2.age = 78
 clone2.country = 'FR'
