@@ -14,14 +14,12 @@ function get(key) {
 }
 
 function set(key, value) {
-    for (var key in sourceObject) {
         // console.log(k)
         // console.log(key)
         sourceObject[key] = value
         // console.log(sourceObject[k])
         // console.log(value)
         return sourceObject[key]
-    }
 }
 
 // console.log(get("str"))
