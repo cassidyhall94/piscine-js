@@ -1,2 +1,7 @@
 const id = (n) => n
-const getLength = (n, m) => length(n); length(m)
+function getLength(n, m) {
+    console.log(n.length)
+    console.log(m.length)
+}
+
+getLength("hello", "hi")
