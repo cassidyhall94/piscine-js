@@ -10,7 +10,6 @@ function get(key) {
         if (k == key)
         return sourceObject[k]
     }
-    return 'key not found'
 }
 
 function set(key, value) {
