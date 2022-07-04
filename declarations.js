@@ -1,4 +1,7 @@
 const escapeStr = String.raw`\\\`"'/`;
+Object.freeze(arr);
+Object.freeze(obj);
+Object.freeze(nested);
 const arr = [4, '2'];
 const obj = {
     str: "Hello World",
@@ -15,9 +18,6 @@ const nested = {
     },
 };
 
-Object.freeze(arr);
-Object.freeze(obj);
-Object.freeze(nested);
 console.log(arr)
 console.log(obj)
 console.log(nested)
