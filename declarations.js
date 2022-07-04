@@ -16,10 +16,3 @@ const nested = {
 };
 
 var o = Object.freeze(nested)
-
-nested.arr = [5, obj.undef, '2']
-console.log(o)
-console.log(escapeStr)
-console.log(arr)
-console.log(obj)
-console.log(nested)
