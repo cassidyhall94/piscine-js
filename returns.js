@@ -1,2 +1,2 @@
 const id = (n) => n
-const getLength = (n, m) => length(n,m)
+const getLength = (n, m) => length(n); length(m)
