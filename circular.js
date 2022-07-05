@@ -1,2 +1,2 @@
-var circular = [];
-circular[0] = circular;
+let circular = {};
+circular.circular = circular;
