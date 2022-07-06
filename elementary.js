@@ -1,14 +1,26 @@
 function multiply(a, b) {
     let result = 0;
-    for (let i = 1; i <= b; i++) {
-        result = result + a;
+
+    if ((b < 0 && a < 0) && (b > 0 && a < 0) || (b < 0 && a < 0)) {
+        b = -b
+        for (let i = 1; i <= b; i++) {
+            result = result + a;
+        }
+        return -result
     }
-    for (let i = -1; i >= b; i--) {
-        result = result + a;
+    if ((b < 0 && a > 0) && !(b > 0 || a < 0)) {
+        b = -b
+        for (let i = 1; i <= b; i++) {
+            result = result + a;
+        }
+        return -result
+    } else {
+        for (let i = 1; i <= b; i++) {
+            result = result + a;
+        }
+        return result
     }
-    return result
 }
-console.log(multiply(123, -22))
 
 function divide(a, b) {
     var sign = 1;
@@ -29,5 +41,9 @@ function divide(a, b) {
 }
 
 function modulo(a, b) {
-
+let q = 0;
+let p = 0;
+q = divide(a,b);
+p = multiply(q,b);
+return a - p
 }
