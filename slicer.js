@@ -1,28 +1,29 @@
-function slice(arr, start, end = arr.length) {
-    let copy = arr
-    if (end != null) {
-        for (let index = start + 1; index < end; index++) {
-            // console.log(index)
-            if (index == start + 1) {
-                copy = copy[start]
-                // console.log(copy)
-            }
-            copy = copy + arr[index]
-            // console.log(arr[index])
-            // console.log(copy)
+function slice(item, start, end = item.length) {
+    let str = "";
+    let arr = [];
+    if (start < 0) {
+        start = item.length + start
+    }
+    if (end < 0) {
+        end = item.length + end
+    }
+    if (typeof item == "string") {
+        for (let index = start; index < end; index++) {
+            str = str + item[index]
         }
     }
-    if (end == null) {
-        for (let index = start; index >= 0; index--) {
-            console.log(index)
-                copy = copy[start]
-                console.log(copy)
-            copy = copy + arr[index]
-            // console.log(arr[index])
-            // console.log(copy)
+    if (Array.isArray(item) == true) {
+        for (let index = start; index < end; index++) {
+            arr.push(item[index])
         }
+        return arr 
     }
-    return copy
+    return str
 }
 
-console.log(slice('abcdef', -2))
+console.log(slice([1, 2, 3, 4, 5, 6], 2))
+console.log(slice([1, 2, 3, 4, 5, 6], -2))
+console.log(slice([1, 2, 3, 4, 5, 6], 0, 2))
+console.log(slice([1, 2, 3, 4, 5, 6], 0, -2))
+console.log(slice([1, 2, 3, 4, 5, 6], 2, 4))
+console.log(slice([1, 2, 3, 4, 5, 6], -3, -1))
