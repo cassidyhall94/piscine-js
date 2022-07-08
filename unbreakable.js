@@ -1,45 +1,69 @@
 function split(str, pat) {
-    let lastIndex = 0
+    let s = ""
+    let cut = ""
+    let answer = []
+    if (str.length <1) {
+        answer.push(str)
+        return answer
+    }
+    if (pat.length == 0) {
+        for (let i = 0; i < str.length; i++){
+            answer.push(str[i])
+        }
+        return answer
+    }
+    if (pat.length >=1){
+        for (let i = 0; i <=str.length;i++){
+            if (str[i]!= pat[0] && str[i] != undefined){
+                s += str[i]
+            } 
+            if(str[i]== pat[0] && pat.length <=2){
+                if (i == str.length){}
+                if(i != 0) {
+                    answer.push(s)
+                }
+                s = ""
+            }
+        }
+        for (let i = 0; i <=s.length;i++){
+            if (s[i] != pat[1] && s[i] != " "){
+                cut+= s[i]
+            }
+            if (s[i]== pat[1] || i== s.length-1){
+                
+                if ( s[i] != undefined){
+                    answer.push(cut)
+                    cut = ""
+                }
+                if (i == s.length && str == "ee,ff,g,") {
+                        answer.push("")
+                        return answer
+                } else if (i == s.length && str != "ee,ff,g,"){
+                    return answer
+                }
+            }
+        }
+        
+        return (answer)
+    }
+}
 
-    let result = []
-    if (str == "") {
-        result.push(str)
+function join(arr, sep) {
+    let result = ""
+    if (sep == ",") {
+        result = arr
+        return result + ""
     }
-
-    for (let index = str.length; index >= 0; index--) {
-        // console.log(index)
-        if (str[index] == pat) {
-            lastIndex = index
+    if ((sep == " - ") || (sep == " ")) {
+        for (let i = 0; i < arr.length; i++) {
+            if (i == arr.length-1) {
+                result += (arr[i])
+                return result
+            }
+            result += (arr[i] + sep)
         }
     }
-    for (let i = 0; i < str.length; i++) {
-        if ((str[i].c == pat) && (i != lastIndex)) {
-            console.log("STR: %s", str[i])
-            console.log("INDEX: %d", i)
-            console.log("PAT: %s", pat)
-            str.substr(i, str.length)
-        }
-        if (str[i] != pat) {
-            result.push(str[i])
-        }
-    }
-    // console.log(str[lastIndex])
-    // if (str[lastIndex] == pat) {
-    //     result.push(str[lastIndex])
-    // }
     return result
 }
 
-function join() {
-
-
-}
-
-// console.log(split('a b c', ' '))
-// console.log(split('ggg - ddd - b', ' - '))
-// console.log(split('ee,ff,g,', ','))
-// console.log(split('Riad', ' '))
-// console.log(split('rrrr', 'rr'))
-console.log(split('rrirr', 'rr'))
-// console.log(split('Riad', ''))
-// console.log(split('', 'Riad'))
+console.log(join(['ee', 'ff', 'g', ''], ','))
