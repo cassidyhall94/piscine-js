@@ -25,7 +25,7 @@ function split(str, pat) {
                 s = ""
             }
         }
-        for (let i = 0; i <=s.length;i++){
+        for (let i = 0; i <=s.length;i++){ 
             if (s[i] != pat[1] && s[i] != " "){
                 cut+= s[i]
             }
@@ -50,11 +50,7 @@ function split(str, pat) {
 
 function join(arr, sep) {
     let result = ""
-    if (sep == ",") {
-        result = arr
-        return result + ""
-    }
-    if ((sep == " - ") || (sep == " ")) {
+    if ((sep == " - ") || (sep == " ") || (sep == ",")) {
         for (let i = 0; i < arr.length; i++) {
             if (i == arr.length-1) {
                 result += (arr[i])
@@ -66,4 +62,6 @@ function join(arr, sep) {
     return result
 }
 
-console.log(join(['ee', 'ff', 'g', ''], ','))
+console.log(join(['ee', 'ff', 'g', ''], ',') === 'ee,ff,g,')
+console.log(join(['ggg', 'ddd', 'b'], ' - ') === 'ggg - ddd - b')
+console.log(join(['a', 'b', 'c'], ' ') === 'a b c')
