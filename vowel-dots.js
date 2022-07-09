@@ -7,3 +7,9 @@ function vowelDots(str) {
     }
     return str.replaceAll(vowels, "$&.");
 }
+
+
+console.log("=", vowelDots('something'))
+console.log("=", vowelDots(''))
+console.log("=", vowelDots('rhythm'))
+console.log("=", vowelDots('Algorithm'))
