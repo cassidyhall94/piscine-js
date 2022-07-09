@@ -5,11 +5,16 @@ function vowelDots(str) {
     if (str.length < 1) {
         return str
     }
-    return str.replaceAll(vowels, "$&.");
+
+    for (let i = 0; i < str.length; i++) {
+        if (str.match(vowels)) {
+            result = str.replace(vowels, "$&.");
+        }
+
+    }
+    if (!str.match(vowels)) {
+        return str
+    }
+
+    return result
 }
-
-
-console.log("=", vowelDots('something'))
-console.log("=", vowelDots(''))
-console.log("=", vowelDots('rhythm'))
-console.log("=", vowelDots('Algorithm'))
