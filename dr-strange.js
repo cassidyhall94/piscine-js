@@ -10,7 +10,17 @@ function addWeek(arg) {
     return day
 }
 
-function timeTravel() {
+function timeTravel(obj) {
+    const currentDate = new Date(obj.date);
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth();
+    var year = currentDate.getFullYear();
+    const yyyymmdd = year + "-" + pad(month + 1) + "-" + pad(date) + " " + obj.hour + ":" + obj.minute + ":" + obj.second;
+    let result = new Date(yyyymmdd)
+    return result
 
+}
 
+function pad(n) {
+    return n<10 ? '0'+n : n;
 }
