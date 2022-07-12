@@ -6,7 +6,8 @@ function dayOfTheYear(date = new Date()) {
     } else {
         let startDate = new Date("01-01-" + year)
         let difference = date.getTime() - startDate.getTime();
-        totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+        totalDays = Math.ceil(difference / (1000 * 60*60 * 24));
+        console.log(totalDays+1)
         return totalDays+1;
     }
 }
