@@ -23,13 +23,12 @@ function isLeapYear(date) {
     if (leap) {
         return true
     } else {
-      return false
+        return false
     }
 }
 
 function isLastDayOfMonth(date = new Date()) {
     const oneDayInMs = 1000 * 60 * 60 * 24;
-
     return new Date(date.getTime() + oneDayInMs).getDate() === 1;
-    
+
 }
