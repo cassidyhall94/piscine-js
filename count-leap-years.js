@@ -11,10 +11,9 @@ function countLeapYears(date = new Date()) {
             count++
         }
     }
-    console.log(count)
     return count - 1
 }
-
+403
 function leapYear(year) {
     return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
