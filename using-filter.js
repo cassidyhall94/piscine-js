@@ -36,15 +36,7 @@ const filter5Vowels = (objArr) => objArr.filter(x => {
 
 const filter1DistinctVowel = (objArr) => objArr.filter(x => {
     for (let i = 0; i < x.length; i++) {
-        if (x[i].match(a) && !x[i].match(vowelsNoA)) {
-            return x
-        } else if (x[i].match(e) && !x[i].match(vowelsNoE)) {
-            return x
-        } else if (x[i].match(i) && !x[i].match(vowelsNoI)) {
-            return x
-        } else if (x[i].match(o) && !x[i].match(vowelsNoO)) {
-            return x
-        } else if (x[i].match(u) && !x[i].match(vowelsNoU)) {
+        if (x[i].match(vowels)) {
             return x
         }
     }
