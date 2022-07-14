@@ -1,4 +1,3 @@
-
 const adder = (arr, initialValue = 0) => arr.reduce((x, y) =>
     x + y, initialValue
 );
