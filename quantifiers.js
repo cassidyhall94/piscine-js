@@ -1,23 +1,26 @@
 function every(arr, func) {
     for (let i = 0; i < arr.length; i++) {
-        (func(arr[i], i, arr))
+        if (!func(arr[i])) {
+            return false
+        }
     }
-
-    return result
+    return true
 }
 
 function some(arr, func) {
     for (let i = 0; i < arr.length; i++) {
-        (func(arr[i], i, arr))
+        if (func(arr[i])) {
+            return true
+        }
     }
-
-    return result
+    return false
 }
 
 function none(arr, func) {
     for (let i = 0; i < arr.length; i++) {
-        (func(arr[i], i, arr))
+        if (func(arr[i])) {
+            return false
+        }
     }
-
-    return result
+    return true
 }
