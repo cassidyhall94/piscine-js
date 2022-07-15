@@ -1,26 +1,26 @@
 export const getArchitects = () => {
-    const y = document.getElementsByTagName("a");
-    const x = document.getElementsByTagName("span");
-    console.log(y)
-    console.log("hiiii")
-    let result = [];
-    for (var i = 0; i < y.length; i++) {
-        result.push(y[i].id);
-    }
-    // for (var i = 0; i < arr2.length; i++) {
-    //     result.push(arr2[i]);
-    // }
-    return result
+    const y = document.querySelectorAll("a");
+    const x = document.querySelectorAll("span");
+    return [x, y]
 }
 
-export const getClassical = (arr1, arr2) => {
-
+export const getClassical = () => {
+    const y = document.querySelectorAll("classical");
+    const x = document.querySelectorAll("baroque modern");
+    return [x, y]
 }
 
-export const getActive = (arr1, arr2) => {
-
+export const getActive = () => {
+    const y = document.querySelectorAll("true");
+    const x = document.querySelectorAll("false");
+    return [x, y]
 }
 
-export const getBonannoPisano = (arr1, arr2) => {
+export const getBonannoPisano = () => {
+    const y = document.getElementById("BonannoPisano");
+    const x = document.querySelectorAll("classical true");
+    console.log([y,x])
+    return [y, x]
+    
 
 }

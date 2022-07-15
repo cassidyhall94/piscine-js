@@ -9,6 +9,8 @@ npm install puppeteer
 https://learn.01founders.co/git/root/public/src/branch/master/dom
 
 SOLUTION_PATH=/home/cassidy/Code/piscine-js node test.js get-them-all
+SOLUTION_PATH=/home/student/piscine-js node test.js get-them-all
+
 
 http://localhost:8000/get-them-all.html
 
