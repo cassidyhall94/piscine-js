@@ -1,7 +1,15 @@
 https://learn.01founders.co/git/root/public/src/branch/master/js
-node test.mjs /home/student/piscine-js circular
 
+node test.mjs /home/student/piscine-js circular
 node test.mjs /home/cassidy/Code/piscine-js unbreakable
 
 for issues:
 npm install puppeteer
+
+https://learn.01founders.co/git/root/public/src/branch/master/dom
+
+SOLUTION_PATH=/home/cassidy/Code/piscine-js node test.js get-them-all
+
+http://localhost:8000/get-them-all.html
+
+&>/dev/null python3 -m http.server &
