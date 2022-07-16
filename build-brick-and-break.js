@@ -1,6 +1,7 @@
 let interval = setInterval(build, 100);
 let a = 1
 let globalNum
+let digits = new RegExp(/(2|4|6|8|0)+$/g);
 
 export function build(num) {
     if (num != undefined && num != globalNum) {
@@ -9,7 +10,9 @@ export function build(num) {
     let brick = document.createElement("div");
     brick.id = "brick-" + a
     a++
-    if (a % 2 !== 0) {
+    let reg = brick.id.match(digits)
+    if (reg) {
+        console.log(brick.id, reg)
         brick.setAttribute('foundation', 'true')
     }
     document.body.appendChild(brick)
@@ -17,34 +20,19 @@ export function build(num) {
         clearInterval(interval)
         return
     }
-    // console.log(brick)
 }
 
-
-// <div id="brick-1" foundation="true"></div>
-export function repair(ids) {
-    let x = document.querySelectorAll(ids)
-    // let y = document.querySelectorAll("foundation")
-    let z = document.hasAttribute('foundation')
+export const repair = async (ids) => {
+    const e = document.getElementById(ids)
+    const z = e.hasAttribute("foundation")
     if (z) {
-        z.setAttribute('repaired', 'in progress')
+        e.setAttribute('repaired', 'in progress')
     } else {
-        z.setAttribute('repaired', 'true')
+        e.setAttribute('repaired', 'true')
     }
-    document.body.appendChild(x)
-    console.log(x)
-    return x
+    console.log(z)
 }
 
-export function destroy(ids) {
-
+export const destroy = async () => {
+    const e = document.querySelector('body > div:last-of-type').remove();
 }
-
-// function split(s) {
-//     for (let i = 0; i < s.length; i++) {
-//         let num = parseInt(s[i].split('-'));
-//         if (typeof (num) == 'number') {
-//             return num
-//         }
-//     }
-// }
