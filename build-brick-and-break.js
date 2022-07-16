@@ -12,7 +12,6 @@ export function build(num) {
     a++
     let reg = brick.id.match(digits)
     if (reg) {
-        console.log(brick.id, reg)
         brick.setAttribute('foundation', 'true')
     }
     document.body.appendChild(brick)
@@ -22,17 +21,20 @@ export function build(num) {
     }
 }
 
-export const repair = async (ids) => {
-    const e = document.getElementById(ids)
-    const z = e.hasAttribute("foundation")
-    if (z) {
-        e.setAttribute('repaired', 'in progress')
-    } else {
-        e.setAttribute('repaired', 'true')
-    }
-    console.log(z)
+export const repair = async (...ids) => {
+    ids.forEach(id => {
+        console.log(id);
+        const e = document.getElementById(id)
+        const z = e.hasAttribute("foundation")
+        if (z) {
+            e.setAttribute('repaired', 'in progress')
+        } else {
+            e.setAttribute('repaired', 'true')
+        }
+    })
 }
 
 export const destroy = async () => {
     const e = document.querySelector('body > div:last-of-type').remove();
+    console.log(e)
 }
