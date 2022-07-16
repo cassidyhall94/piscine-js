@@ -10,7 +10,7 @@ export function build(num) {
     brick.id = "brick-" + (a + 1)
     a++
     if (a % 3 === 2) {
-        brick.setAttribute('foundation', 'true')
+        brick.setAttribute('data-foundation', true)
     }
     document.body.appendChild(brick)
     if (a == globalNum) {
@@ -22,11 +22,11 @@ export function build(num) {
 export const repair = async (...ids) => {
     ids.forEach(id => {
         const e = document.getElementById(id)
-        const z = e.hasAttribute("foundation")
+        const z = e.hasAttribute("data-foundation")
         if (z) {
-            e.setAttribute('repaired', 'in progress')
+            e.setAttribute('data-repaired', 'in progress')
         } else {
-            e.setAttribute('repaired', 'true')
+            e.setAttribute('data-repaired', 'true')
         }
     })
 }
