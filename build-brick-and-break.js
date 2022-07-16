@@ -1,21 +1,19 @@
 let interval = setInterval(build, 100);
-let a = 1
+let a = 0
 let globalNum
-let digits = new RegExp(/(2|4|6|8|0)+$/g);
 
 export function build(num) {
     if (num != undefined && num != globalNum) {
         globalNum = num
     }
     let brick = document.createElement("div");
-    brick.id = "brick-" + a
+    brick.id = "brick-" + (a + 1)
     a++
-    let reg = brick.id.match(digits)
-    if (reg) {
+    if (a % 3 === 2) {
         brick.setAttribute('foundation', 'true')
     }
     document.body.appendChild(brick)
-    if (a == globalNum + 1) {
+    if (a == globalNum) {
         clearInterval(interval)
         return
     }
