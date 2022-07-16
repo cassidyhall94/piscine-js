@@ -23,7 +23,6 @@ export function build(num) {
 
 export const repair = async (...ids) => {
     ids.forEach(id => {
-        console.log(id);
         const e = document.getElementById(id)
         const z = e.hasAttribute("foundation")
         if (z) {
@@ -36,5 +35,4 @@ export const repair = async (...ids) => {
 
 export const destroy = async () => {
     const e = document.querySelector('body > div:last-of-type').remove();
-    console.log(e)
 }
