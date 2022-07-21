@@ -1,23 +1,35 @@
-function fusion(...objs) {
-    let keys = Object.keys(objs)
+function fusion(obj1, obj2) {
+    let longestObj = Object.keys(obj1).length > Object.keys(obj2).length ? obj1 : obj2
     let result = {}
     let total = 0
-    objs.forEach((obj) => {
-        Object.keys(obj).forEach((k) => {
-            switch (typeof obj[k]) {
+    let str = ''
+    for (let k in longestObj)
+        if (typeof obj1[k] === typeof obj2[k]) {
+            switch (typeof obj1[k] && typeof obj2[k]) {
                 case 'number':
-                    if (obj[k] === obj[keys]) {
-                        console.log('obj[k]:', obj[k])
-                        total += obj[k]
-                        console.log('total:', total)
-                        result[k] = total
-                        console.log('result[k]:', result[k])
+                    total = obj1[k] + obj2[k]
+                    result[k] = total;
+                    break;
+                case 'string':
+                    str = obj1[k] + ' ' + obj2[k]
+                    result[k] = str;
+                    break;
+                case 'object':
+                    if (typeof obj1[k].length === 'undefined') {
+                        result[k] = fusion(obj1[k], obj2[k])
+                        break;
+                    } else {
+                        result[k] = obj1[k].concat(obj2[k])
+                        break;
                     }
             }
-        })
-    })
-    console.log(result)
+        } else {
+            if (typeof obj2[k] == "undefined") {
+                result[k] = obj1[k]
+            }
+            else {
+                result[k] = obj2[k]
+            }
+        }
     return result
 }
-
-console.log(fusion({ a: 12, b: 2, c: 43 }, { a: 23, b: 2 }), { a: 35, b: 4, c: 43 })
