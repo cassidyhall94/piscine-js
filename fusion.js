@@ -1,35 +1,23 @@
 function fusion(...objs) {
+    let keys = Object.keys(objs)
     let result = {}
-    let arr = []
-
-    for (let k in objs) {
-        arr.push(objs[k])
-        // console.log(obj1[k], obj2[k])
-        // console.log(typeof obj1[k])
-        // if (typeof obj1 === 'array' && typeof obj2 === 'array') {
-        //     return obj1.push(obj2)
-        // }
-        // if (typeof obj1 === 'string' && typeof obj2 === 'string') {
-        //     return obj1 + ' ' + obj2
-        // }
-        // if (typeof obj1[k] === 'number' && typeof obj2[k] === 'number') {
-        //     const total = obj1[k] + obj2[k]
-        //     result[k] = total
-        // }
-
-    }
-    console.log(flattenObj(arr))
+    let total = 0
+    objs.forEach((obj) => {
+        Object.keys(obj).forEach((k) => {
+            switch (typeof obj[k]) {
+                case 'number':
+                    if (obj[k] === obj[keys]) {
+                        console.log('obj[k]:', obj[k])
+                        total += obj[k]
+                        console.log('total:', total)
+                        result[k] = total
+                        console.log('result[k]:', result[k])
+                    }
+            }
+        })
+    })
+    console.log(result)
     return result
 }
 
-const flattenObj = (obj, parent, res = {}) => {
-    for (const key of Object.keys(obj)) {
-        const propName = parent ? parent + '.' + key : key;
-        if (typeof obj[key] === 'object') {
-            flattenObj(obj[key], propName, res);
-        } else {
-            res[propName] = obj[key];
-        }
-    }
-    return res;
-}
+console.log(fusion({ a: 12, b: 2, c: 43 }, { a: 23, b: 2 }), { a: 35, b: 4, c: 43 })
