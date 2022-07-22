@@ -1,46 +1,36 @@
 function filterKeys(obj, func) {
-    console.log('FILTER OBJ:', obj)
     let result = {}
     for (let k in obj) {
         if (func(k)) {
             result[k] = obj[k]
         }
     }
-    console.log('FILTER RESULT', result)
     return result
 }
 
 function mapKeys(obj, func) {
-    console.log('OBJ:', obj)
-    for (let k in obj) {
-        let keys = func(k)
-        console.log('KEYS:', keys)
-        delete Object.assign(obj, { [keys]: obj[k] })[k];
-        if (k === 'onion') {
-            console.log('onion')
-            delete obj[k]
-        } 
+    let result = {}
+    for (let [k] of Object.entries(obj)) {
+        let newKeys = func(k)
+        result[newKeys] = obj[k]
     }
-    console.log('**RESULT', obj)
-    return obj
-}
-
-function reduceKeys(obj, func) {
-    let keys = Object.keys(obj)
-    let result = func(obj, keys)
     return result
 }
 
-const cart = {
-    vinegar: 80,
-    sugar: 100,
-    oil: 50,
-    onion: 200,
-    garlic: 22,
-    paprika: 4,
+function reduceKeys(obj, func, start = undefined) {
+    let result = start
+    let count = 1
+    if (start === undefined) {
+        count = 0
+    }
+    for (let keys of Object.entries(obj)) {
+        if (count === 0) {
+            result = keys[0]
+        } else {
+            result = func(result, keys[0])
+        }
+        count++
+    }
+    return result
 }
 
-
-console.log(mapKeys(filterKeys(cart, (k) => k === 'onion'), (k) => (k = 'orange')))
-
-// console.log(reduceKeys(cart, (acc, cr) => acc.concat(', ', cr)))
