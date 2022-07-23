@@ -8,15 +8,6 @@ function filterEntries(obj, func) {
     return result
 }
 
-function mapEntries(obj, func) {
-    let result = {}
-    for (let v of Object.entries(obj)) {
-        let entry = func(v)
-        result[entry[0]] = entry[1]
-    }
-    return result
-}
-
 function reduceEntries(obj, func, start) {
     let result = start
     for (let v of Object.entries(obj)) {
@@ -26,23 +17,33 @@ function reduceEntries(obj, func, start) {
 }
 
 function lowCarbs(obj) {
+    return filterEntries(obj, (x) => {
+        return (nutritionDB[x[0]].carbs * x[1] / 100) < 50
+    })
+}
+
+function totalCalories(obj) {
+    return reduceEntries(obj, (result, x) => {
+        result += nutritionDB[x[0]].calories * x[1] / 100
+        return Number(result.toFixed(1))
+    }, 0)
+}
+
+function mapEntries(obj, func) {
     let result = {}
-    
     for (let v of Object.entries(obj)) {
-        console.log(v)
-        let func = v < 50
-        if (filterEntries(obj, func)) {
-            result = obj[v]
-            console.log(result)
-        }
+        let entry = func(v)
+        result[entry[0]] = entry[1]
     }
     return result
 }
 
-function totalCalories(obj) {
-
-}
-
 function cartTotal(obj) {
-
+    return mapEntries(obj, (x) => {
+        let r = {}
+        for (let [k, val] of Object.entries(nutritionDB[x[0]])) {
+            r[k] = Math.round((x[1] / 100 * val) * 1000) / 1000
+        }
+        return [x[0], r]
+    })
 }
