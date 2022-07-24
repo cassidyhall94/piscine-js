@@ -10,21 +10,20 @@ export const explore = () => {
     compass.innerHTML = 'S'
     document.body.appendChild(compass)
 
-    places.sort((p1, p2) => {
-        return ParseDMS(p1.coordinates).Latitude < ParseDMS(p2.coordinates).Latitude
-    })
-    for (let i = 0; i < places.length; i++) {
+    let sortedPlaces = sort([...places])
+
+    for (let i = 0; i < sortedPlaces.length; i++) {
         let section = document.createElement("section")
-        section.style.background = `./where-do-we-go_images/${places[i].name.split(',')[0].toLowerCase().split(' ').join('-')}.jpg`
+        section.style.background = `url('./where-do-we-go_images/${sortedPlaces[i].name.split(',')[0].toLowerCase().split(' ').join('-')}.jpg')`
         section.style.backgroundSize = "100%"
         section.style.flex = 'auto'
 
         let link = document.createElement('a')
         link.className = "location"
-        link.innerHTML = places[i].name + '\n' + places[i].coordinates
-        link.style.color = places[i].color
+        link.innerHTML = sortedPlaces[i].name + '\n' + sortedPlaces[i].coordinates
+        link.style.color = sortedPlaces[i].color
         link.style.visibility = 'hidden'
-        link.href = `https://www.google.com/maps/place/${encodeURIComponent(places[i].coordinates)}`
+        link.href = `https://www.google.com/maps/place/${encodeURIComponent(sortedPlaces[i].coordinates)}`
         link.target = '_blank'
 
         placesLinksElements = [...placesLinksElements, link]
@@ -36,11 +35,10 @@ export const explore = () => {
     window.addEventListener('scroll', (e) => {
         const scrollOffset = window.scrollY
         const windowHeight = window.innerHeight
-        
+
         const picOffset = Math.floor(scrollOffset / windowHeight)
         const specificPicOffset = scrollOffset % windowHeight
-        const over50p = specificPicOffset > (windowHeight/2)
-        const under50p = specificPicOffset < (windowHeight/2)
+        const over50p = specificPicOffset > (windowHeight / 2)
 
         if (picOffset === 0) {
             placesLinksElements.forEach((e) => {
@@ -52,7 +50,7 @@ export const explore = () => {
             placesLinksElements.forEach((e) => {
                 e.style.visibility = 'hidden'
             })
-            placesLinksElements[picOffset+1].style.visibility = 'visible'
+            placesLinksElements[picOffset + 1].style.visibility = 'visible'
         }
 
         if (scrollOffset < lastScrollY) {
@@ -64,24 +62,19 @@ export const explore = () => {
     })
 }
 
-function ParseDMS(input) {
-    var parts = input.split(/[^\d\w\.]+/);
-    var lat = ConvertDMSToDD(parts[0], parts[2], parts[3], parts[4]);
-    var lng = ConvertDMSToDD(parts[5], parts[7], parts[8], parts[9]);
-
-    return {
-        Latitude: lat,
-        Longitude: lng,
-        Position: lat + ',' + lng
-    }
+export function getNorth(arg) {
+    let coords = arg.coordinates.split(" ")[0].replace(/[Â°'."]/g, "");
+    return coords.includes("N")
+        ? (coords = Number(coords.slice(0, 5)))
+        : Number(coords.slice(0, 5)) * -1;
 }
 
-
-function ConvertDMSToDD(degrees, minutes, seconds, direction) {
-    var dd = Number(degrees) + Number(minutes) / 60 + Number(seconds) / (60 * 60);
-
-    if (direction == "S" || direction == "W") {
-        dd = dd * -1;
-    } // Don't do anything for N or E
-    return dd;
+export function sort(arr) {
+    let array = [...arr];
+    array.sort((a, b) => {
+        if (getNorth(a) > getNorth(b)) return -1;
+        if (getNorth(a) < getNorth(b)) return 1;
+        else return 0;
+    });
+    return array;
 }
