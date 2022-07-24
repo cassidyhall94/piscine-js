@@ -15,7 +15,7 @@ export const explore = () => {
     })
     for (let i = 0; i < places.length; i++) {
         let section = document.createElement("section")
-        section.style.background = "url(./images/" + places[i].name.split(',')[0].toLowerCase().split(' ').join('-') + ".jpg)"
+        section.style.background = `./where-do-we-go_images/${places[i].name.split(',')[0].toLowerCase().split(' ').join('-')}.jpg`
         section.style.backgroundSize = "100%"
         section.style.flex = 'auto'
 
