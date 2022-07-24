@@ -1,9 +1,15 @@
 import { places } from './where-do-we-go.data.js';
 
 let placesLinksElements = []
-let shifter = 0
+let compass
+let lastScrollY
 
 export const explore = () => {
+    compass = document.createElement('div')
+    compass.className = 'direction'
+    compass.innerHTML = 'S'
+    document.body.appendChild(compass)
+
     places.sort((p1, p2) => {
         return ParseDMS(p1.coordinates).Latitude < ParseDMS(p2.coordinates).Latitude
     })
@@ -18,6 +24,8 @@ export const explore = () => {
         link.innerHTML = places[i].name + '\n' + places[i].coordinates
         link.style.color = places[i].color
         link.style.visibility = 'hidden'
+        link.href = `https://www.google.com/maps/place/${encodeURIComponent(places[i].coordinates)}`
+        link.target = '_blank'
 
         placesLinksElements = [...placesLinksElements, link]
         section.appendChild(link)
@@ -26,21 +34,33 @@ export const explore = () => {
     placesLinksElements[0].style.visibility = 'visible'
 
     window.addEventListener('scroll', (e) => {
-        var scrollOffset = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
+        const scrollOffset = window.scrollY
         const windowHeight = window.innerHeight
-        console.log(scrollOffset, shifter, windowHeight, (windowHeight / 2), ((shifter * windowHeight) - (windowHeight / 2)))
-        if (((shifter * windowHeight) - (windowHeight / 2)) > 0) {
-            if (scrollOffset > ((shifter * windowHeight) - (windowHeight / 2))) {
-                placesLinksElements.forEach((e) => {
-                    e.style.visibility = 'hidden'
-                })
-                shifter++
-                placesLinksElements[shifter].style.visibility = 'visible'
-            }
+        
+        const picOffset = Math.floor(scrollOffset / windowHeight)
+        const specificPicOffset = scrollOffset % windowHeight
+        const over50p = specificPicOffset > (windowHeight/2)
+        const under50p = specificPicOffset < (windowHeight/2)
+
+        if (picOffset === 0) {
+            placesLinksElements.forEach((e) => {
+                e.style.visibility = 'hidden'
+            })
+            placesLinksElements[0].style.visibility = 'visible'
         }
-        // get window height
-        // record scroll amount
-        // once scroll amount == 50% screen height then change to the next bit of text
+        if (over50p) {
+            placesLinksElements.forEach((e) => {
+                e.style.visibility = 'hidden'
+            })
+            placesLinksElements[picOffset+1].style.visibility = 'visible'
+        }
+
+        if (scrollOffset < lastScrollY) {
+            compass.innerHTML = 'N'
+        } else {
+            compass.innerHTML = 'S'
+        }
+        lastScrollY = window.scrollY
     })
 }
 
