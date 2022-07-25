@@ -1,8 +1,7 @@
-import { places } from './where-do-we-go.data.js';
+import { places } from "./where-do-we-go.data.js";
 
-let placesLinksElements = []
 let compass
-let lastScrollY
+let finalL = -1;
 
 export const explore = () => {
     compass = document.createElement('div')
@@ -10,71 +9,41 @@ export const explore = () => {
     compass.innerHTML = 'S'
     document.body.appendChild(compass)
 
-    let sortedPlaces = sort([...places])
-
-    for (let i = 0; i < sortedPlaces.length; i++) {
-        let section = document.createElement("section")
-        section.style.background = `url('./where-do-we-go_images/${sortedPlaces[i].name.split(',')[0].toLowerCase().split(' ').join('-')}.jpg')`
-        section.style.backgroundSize = "100%"
-        section.style.flex = 'auto'
-
-        let link = document.createElement('a')
-        link.className = "location"
-        link.innerHTML = sortedPlaces[i].name + '\n' + sortedPlaces[i].coordinates
-        link.style.color = sortedPlaces[i].color
-        link.style.visibility = 'hidden'
-        link.href = `https://www.google.com/maps/place/${encodeURIComponent(sortedPlaces[i].coordinates)}`
-        link.target = '_blank'
-
-        placesLinksElements = [...placesLinksElements, link]
-        section.appendChild(link)
+    sort.forEach((x) => {
+        const section = document.createElement("section")
+        section.width = window.innerWidth
+        section.height = window.innerHeight
+        section.style.background = "url(" + './where-do-we-go_images/' + x.name.split(",")[0].split(" ").join("-").toLowerCase() + ".jpg" + ")";
+        section.style.backgroundSize = "100Vw"
         document.body.appendChild(section)
-    }
-    placesLinksElements[0].style.visibility = 'visible'
-
-    window.addEventListener('scroll', (e) => {
-        const scrollOffset = window.scrollY
-        const windowHeight = window.innerHeight
-
-        const picOffset = Math.floor(scrollOffset / windowHeight)
-        const specificPicOffset = scrollOffset % windowHeight
-        const over50p = specificPicOffset > (windowHeight / 2)
-
-        if (picOffset === 0) {
-            placesLinksElements.forEach((e) => {
-                e.style.visibility = 'hidden'
-            })
-            placesLinksElements[0].style.visibility = 'visible'
-        }
-        if (over50p) {
-            placesLinksElements.forEach((e) => {
-                e.style.visibility = 'hidden'
-            })
-            placesLinksElements[picOffset + 1].style.visibility = 'visible'
-        }
-
-        if (scrollOffset < lastScrollY) {
-            compass.innerHTML = 'N'
-        } else {
-            compass.innerHTML = 'S'
-        }
-        lastScrollY = window.scrollY
     })
 }
 
-export function getNorth(arg) {
-    let coords = arg.coordinates.split(" ")[0].replace(/[Â°'."]/g, "");
-    return coords.includes("N")
-        ? (coords = Number(coords.slice(0, 5)))
-        : Number(coords.slice(0, 5)) * -1;
+let area = document.createElement("a")
+area.classList.add("location")
+document.body.appendChild(area)
+
+window.addEventListener('scroll', (e) => {
+    if (window.scrollY > finalL) compass.innerHTML = 'S';
+    else compass.innerHTML = 'N'; finalL = window.scrollY;
+    let link = sort[Math.round(window.scrollY / window.innerHeight)];
+    area.innerHTML = `${link.name}\n${link.coordinates}`;
+    area.style.color = link.color;
+    area.href = `https://www.google.com/maps/place/${link.coordinates}`;
+    area.target = "_blank"
+})
+
+const coords = coords => {
+    const coord = coords.split("'")[0].replace('°', '.')
+    const positionN = coords.includes('N')
+    return positionN ? coord : -coord
 }
 
-export function sort(arr) {
-    let array = [...arr];
-    array.sort((a, b) => {
-        if (getNorth(a) > getNorth(b)) return -1;
-        if (getNorth(a) < getNorth(b)) return 1;
-        else return 0;
-    });
-    return array;
-}
+const sort = places.sort(
+    (a, b) => coords(b.coordinates) - coords(a.coordinates),
+)
+
+
+
+
+
